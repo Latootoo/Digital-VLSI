@@ -1,0 +1,16 @@
+# Version:1.0 MMMC View Definition File
+# Do Not Remove Above Line
+create_rc_corner -name worst_case -preRoute_res {1.2} -preRoute_cap {1.2} -preRoute_clkres {1.2} -preRoute_clkcap {1.2} -postRoute_res {1.2} -postRoute_cap {1.2} -postRoute_xcap {1.2} -postRoute_clkres {0} -postRoute_clkcap {0.0} -qx_tech_file {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch}
+create_rc_corner -name best_case -preRoute_res {.8} -preRoute_cap {.8} -preRoute_clkres {.8} -preRoute_clkcap {.8} -postRoute_res {.8} -postRoute_cap {.8} -postRoute_xcap {.8} -postRoute_clkres {0.0} -postRoute_clkcap {0.0} -qx_tech_file {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045_tech/qrc/qx/gpdk045.tch}
+create_library_set -name fast -timing {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/fast_vdd1v0_basicCells.lib} -si {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045/celtic/fast.cdb}
+create_library_set -name slow -timing {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_basicCells.lib} -si {../../../../../../../courses/ece447/gpdk/GPDK045/gsclib045_svt_v4.4/gsclib045/celtic/slow.cdb}
+create_constraint_mode -name nominal -sdc_files {Outputs/outputs_Apr20/transmitter_m.sdc}
+create_delay_corner -name slow_worst -library_set {slow} -rc_corner {worst_case}
+create_delay_corner -name slow_best -library_set {slow} -rc_corner {best_case}
+create_delay_corner -name fast_worst -library_set {fast} -rc_corner {worst_case}
+create_delay_corner -name fast_best -library_set {fast} -rc_corner {best_case}
+create_analysis_view -name slow_worst_view -constraint_mode {nominal} -delay_corner {slow_worst}
+create_analysis_view -name slow_best_view -constraint_mode {nominal} -delay_corner {slow_best}
+create_analysis_view -name fast_best_view -constraint_mode {nominal} -delay_corner {fast_best}
+create_analysis_view -name fast_worst_view -constraint_mode {nominal} -delay_corner {fast_worst}
+set_analysis_view -setup {slow_worst_view slow_best_view} -hold {fast_best_view fast_worst_view}

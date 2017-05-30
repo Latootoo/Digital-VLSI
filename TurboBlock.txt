@@ -1,0 +1,40 @@
+Documentation: 
+
+Turbo encoder block is rate 1/3 and is split into 3 sub blocks.
+
+Input_Block: 
+This block has two 4096 bit buffers which stores input bits. Once one of the buffer has been filled, this block will begin 
+outputting to the next block. 4096x12 bit ROM is used to store interleave indexes. This block generates two outputs. One output 
+comes by sequentially indexing into one of the buffer, the other output comes indexing with interleaved addresses. 
+
+
+RSC: (Recursive Systematic Convolutional Encoder)
+Two of these blocks are used to get the 1/3 rate. Each rsc block has two output x_out & z_out. In effect there will be 4 outputs coming 
+from these two rsc's. These rsc's operates in two modes Normal & Termination mode. 
+In Normal mode - we only need x_out and z_out of first rsc block, and then z_out of the second rsc block. Only 3 outputs are valid.
+In Termination mode - we need x_out and z_out from both blocks. All 4 outputs are valid. When in termination mode, this block doesn't 
+accept any input. A total of 12 bits is outputted in termination mode and then it goes back to normal mode. 
+
+Output_Block: 
+This block buffers the outputs from the two rsc blocks and then outputs them in the correct order. The following block is symbol mapper
+which requires two inputs, so this output block will output 2 bits at a time. Output order changes when in Normal & Termination mode. 
+x & z comes from first rsc block. x' & z' comes from second rsc block. 
+Normal Mode order: x1, z1, z'1, x2, z2, z'2, x3, z3, z'3, ...
+Termination Mode order: x1, z1, x2, z2, x3, z3, x'1, z'1, x'2, z'2, x'3, z'3 
+A valid output pin is also implemented so that the symbol mapper block knows when the inputs are valid. 
+
+
+Timing: 
+The symbol mapper block which follows the turbo block requires that the inputs should remain the same for 8 clock cycles. 
+Our base clock periods is 2ns. So the output from turbo block should changes every 8 clock cycles (16 ns). 
+To acheive this spec we need two clocks - one of them is the base clock and the other one is the slow clock. 
+Period of the slow clock is 24 ns (12 clock cycle of base clock).
+
+Input Block and RSC blocks run with the slow clock while the Output Block runs with base clocks. The Output block's input 
+should be fixed for 12 clock cycles and its output will be fixed for 8 clocks cycles. 
+So in nomal mode: every 12 clocks cycles 3 new bits will arrive @ output block - and it will buffer and pass out 2 bits every 
+8 clock cyles. 
+
+
+~ Let us know if these don't make sense.
+- Turbo Crew

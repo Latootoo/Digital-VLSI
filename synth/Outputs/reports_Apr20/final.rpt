@@ -1,0 +1,46 @@
+
+
+Working Directory = /afs/ee.cooper.edu/user/h/o/howald/git/hw-transmitter/synth
+QoS Summary for transmitter
+========================================================================================
+Metric                  generic   
+========================================================================================
+Slack (ps):               1585.5
+  R2R (ps):               1585.5
+  I2R (ps):             no_value
+  R2O (ps):             no_value
+  I2O (ps):             no_value
+  CG  (ps):             no_value
+TNS (ps):                      0
+  R2R (ps):                  0.0
+  I2R (ps):             no_value
+  R2O (ps):             no_value
+  I2O (ps):             no_value
+  CG  (ps):             no_value
+Failing Paths:                 0
+Area:                         13
+Instances:                 42836
+Utilization (%):            0.00
+Tot. Net Length (um):   no_value
+Avg. Net Length (um):   no_value
+Total Overflow H:              0
+Total Overflow V:              0
+Route Overflow H (%):   no_value
+Route Overflow V (%):   no_value
+========================================================================================
+CPU  Runtime (m:s):        00:37
+Real Runtime (m:s):        00:44
+CPU  Elapsed (m:s):        00:41
+Real Elapsed (m:s):        00:45
+Memory (MB):              626.77
+========================================================================================
+
+========================================================================================
+Flow Settings:
+========================================================================================
+Total Runtime (m:s): 02:41
+Total Memory (MB):   659.47
+Executable Version:  15.21
+========================================================================================
+
+

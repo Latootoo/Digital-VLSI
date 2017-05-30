@@ -1,0 +1,42 @@
+How to simulate and view waveforms without repeatedly opening and
+closing SimVision:
+
+(1) add the following lines to the initial begin block in your
+    testbench:
+
+      $shm_open("<name of your testbench>.shm");
+      $shm_probe("ASCM"); 
+
+This will tell the simulator to save all of your waveforms in a
+database file.
+
+(2) Run the compiler and simulator using the ncverilog command:
+    ncverilog <tb_name>.v
+
+    (or just run "make" if you're in the hw-transmitter directory).
+        
+    You should see some terminal output but no gui should appear.
+    There should be a directory called <tb_name>.shm which contains
+    the database files which you will load with simvision.
+
+    (if you use the makefile, it will be in the build_<tbname>
+    directory).
+
+(3) Open simvision (type simvision in another terminal), and click the
+    top-left most icon (under the file dropdown menu), "open SST2
+    Database". Navigate to the <tb_name>.shm directory and select the
+    .trn file.
+
+(5) Your design should appear in the design browser. Right click it
+    and select send to waveform veiwer, as usual.
+
+(6) Now, make a change to your verilog module, re-compile and simulate
+    with ncverilog.
+
+(7) In simvision, right-click on the top-level folder in the design
+    browser and select "reload". Your waveforms should be updated!
+
+
+Since it takes up to 10 seconds to restart simvision, and the
+simulator without the gui runs quite fast, the time savings should add
+up quickly.

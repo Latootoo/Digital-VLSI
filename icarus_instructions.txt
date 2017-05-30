@@ -1,0 +1,20 @@
+If you want to run behavioral RTL simulations on your own computer,
+it's very easy! 
+
+Install the icarus verilog compiler (available for windows, mac, and
+linux, but may be a pain to install on windows and use with the
+provided makefile.)
+
+
+After that, you can just run make SIM=icarus, and all the testbenches
+should be run using the icarus verilog compiler (checkout Makefile and
+rtl/Makefile if you're curious about what's actually being run).
+
+Waveforms for icarus will be saved as <filename>.vcd. These should be
+viewable in any waveform viewer, for instance, gtkwave is an open
+source one which can be installed easily on mac/linux.
+
+
+
+
+
